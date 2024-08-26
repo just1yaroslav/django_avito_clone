@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+{% block content %}
+    <style>
+        .search {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search_input {
+            width: 250px;
+        }
+    </style>
+    <div class="search">
+        <form action="." method="post">
+            {% csrf_token %}
+            <input type="text" class="search_input" placeholder="Напишите название продукта">
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends 'products/base.html' %}
+{% block content %}
+    {% for pages in page_obj.paginator.page_range %}
+        <li class="page-num">
+            <a href="?page={{ pages }}">{{ pages }}</a>
+        </li>
+    {% endfor %}
+{% endblock content %}

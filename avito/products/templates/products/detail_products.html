@@ -1,0 +1,32 @@
+{% extends 'products/base.html' %}
+{% block title %}Detail {{ product.title }}{% endblock title %}
+
+{% block content %}
+  <style>
+    .product__detail__photo img {
+      width: 30%;
+      height: auto;
+      background-size: cover;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  </style>
+
+  <div class="product__detail">
+    <div class="product__image">
+      {% if product.product_images %}
+        <img src="{{ product.product_images.url }}" alt="product image">
+      {% else %}
+        <p>No image available</p>
+      {% endif %}
+    </div> 
+    <div class="photo__detail__info">
+      <div class="photo__detail__info__title">
+        <h1>{{ product.title }}</h1>
+      </div>
+      <div class="photo__detail__info__description">
+        <h1>{{ product.full_description }}</h1>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

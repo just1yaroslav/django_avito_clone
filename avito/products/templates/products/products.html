@@ -1,0 +1,105 @@
+{% extends 'products/base.html' %}
+{% block title %}All products{% endblock title %}
+
+{% block content %}
+    <style>
+        .more__info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        .product {
+            display: flex;
+            flex-direction: column;
+            height: 510px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+        .product__image img {
+            border-radius: 5px;
+            margin-top: 10px;
+            object-fit: cover;
+            width: 250px;
+            height: 250px;
+        }
+        .more__price {
+            margin-top: -5px;
+            gap: 15px;
+            align-items: center;
+        }
+        .all_products {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .button__buy button {
+            cursor: pointer;
+            height: 21px;
+            color: white;
+            border-radius: 2px;
+            border: 0;
+            background: -webkit-linear-gradient(3deg, #131a7c,#2032b6,#6171ff);/* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(3deg, #131a7c,#2032b6,#6171ff);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+    {% include "products/_components/search.html" %}
+    <div class="all_products">
+        {% for product in products %}
+        	<div class="product">
+            <div class="product_category">
+                <div class="product_category">
+                    <button class="cat">{{ product.get_category_display }}</button>
+                </div>
+            </div>
+            <div class="product__image">
+                {% if product.product_images %}
+                    <img src="{{ product.product_images.url }}" alt="product image">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </div>            
+            <div class="product__text">
+                <div class="product__text__title">
+                    <h3>{{ product.title }}</h3>
+                </div>
+                <div class="product__text__description">
+                    <p>{{ product.low_description }}</p>
+                </div>
+            </div>
+            <div class="more__price">
+                <div class="product__price">
+                    <h3>{{ product.price }} руб</h3>
+                </div>
+                <div class="buttons">
+                    <div class="button__buy">
+                        <a href="#"><button class="btn-warning">Купить</button></a>  
+                    </div>
+                    <div class="button__more">
+                        <a href="{% url 'products:product_detail' product.slug %}"><button>Подробнее</button></a>
+                    </div>
+                </div>
+            </div>
+            <hr style="width: 100%; background: black; color: black;">
+            <div class="more__info">
+                <div class="author_product">
+                    <p>{{ product.author.username }}</p>
+                </div>
+                <div class="date_product">
+                    <p style="font-size: 13px;">{{ product.created_at }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include "products/_components/pagination.html" %}
+{% endblock content %}
